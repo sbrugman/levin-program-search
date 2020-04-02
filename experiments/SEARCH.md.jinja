@@ -1,0 +1,45 @@
+<table>
+<tr>
+    <th>Metrics</th>
+    <th>Solutions</th>
+</tr>
+<tr>
+<td markdown="1">
+
+- search phase limit: $${{ search_length }}$$
+- total runs: $${{ n_runs }}$$
+- total search time: $${{ n_steps }}$$
+- total solutions: $${{ n_solutions }}$$
+- generalizing solutions: $${{ n_generalizes }}$$ ($${{ n_generalizes / n_solutions }}$$)
+
+</td>
+<td markdown="1">
+
+{% if solutions | length -%}
+{% for solution in solutions %}
+- {{ solution }}
+{% endfor -%}
+{% else %}
+No solutions found
+{% endif %}
+
+</td>
+</tr>
+</table>
+
+<details><summary>Replication</summary>
+
+<table>
+<tr>
+<td>Run Deterministic Levin Search</td>
+<td markdown="1">
+  
+```      
+python levin_search.py {{ task | upper }} {{ search_length }} logs/{{ task | lower }}/
+```
+        
+</td>
+</tr>
+</table>
+
+</details>

@@ -1,0 +1,73 @@
+<table>
+<tr>
+<th>Program</th>
+<th>Animation</th>
+<th>Interpretation</th>
+</tr>
+<tr>
+<td markdown="1">
+
+{{ program }}
+
+Search:
+- Found after: $${{ n_runs }}$$
+- Steps allocated: $${{ runtime_limit }}$$
+
+Program:
+- Steps used: $${{ runtime }}$$
+- Program length: $${{ program_length }}$$
+- Space probability: $${{ space_probability }}$$
+- Complexity: $${{ complexity }}$$
+
+</td>
+<td>
+
+<img alt="Program Animation" src="images/{{ task }}/animation_{{ program_clean }}.gif" width="400px" />
+
+</td>
+<td markdown="1">
+
+{{ table }}
+
+</td>
+</tr>
+</table>
+
+<details><summary>Replication</summary>
+
+<table>
+<tr>
+<td>Obtain program log</td>
+<td markdown="1">
+      
+```  
+python run_program.py string {{ program_comma }} program_{{ program_clean }}.jsonl
+```
+        
+</td>
+</tr>
+<tr>
+<td>Generate animation</td>
+<td markdown="1">
+       
+```      
+python program_convert.py program_{{ program_clean }}.jsonl animation animation_{{ program_clean }}.gif
+```
+
+</td>
+</tr>
+<tr>
+<td>Generate table</td>
+<td markdown="1">
+     
+```   
+python program_convert.py program_{{ program_clean }}.jsonl table table.md
+```
+
+</td>
+</tr>
+</table>
+
+</details>
+
+---

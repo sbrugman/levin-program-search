@@ -1,0 +1,52 @@
+\documentclass[margin=0mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc}
+\begin{document}
+\begin{tikzpicture}[every node/.style={block}, block/.style={minimum height=1.5em,outer sep=0pt,draw,rectangle,node distance=0pt}]
+   % Program tape
+   {% for node in program_tape %}
+   \node{% if node['work_tape'] %}[fill=red!10]{%else%}[fill=green!10]{%endif%} (s{{ node['node_name'] }}) {% if node['prev_node_name'] %}[right=of s{{ node['prev_node_name'] }}] {%endif %} { {{ node['value'] }} };
+   {% if addresses %}
+      \node (a{{node['node_name']}}) [above=of s{{node['node_name']}}]  { {{ node['node_name'] }} };
+   {% endif %}
+
+   % Interpretation
+   % \node[minimum width=1.2cm] (i{{node['node_name']}}) [below=of s{{node['node_name']}}]]  { interpretation };
+   {% endfor %}
+
+   % Instruction pointer
+   \node (instruction_head) [above = 0.75cm of {{node_name_instruction_head}},draw=black,thick] {Instruction Pointer};
+   \draw[-latex] ++(instruction_head) -- ({{node_name_instruction_head}});
+
+   % Tape continuation on the left side
+   \draw (s{{ node_name_first }}.north west) -- ++(-1cm,0);
+   \draw (s{{ node_name_first }}.south west) -- ++ (-1cm,0);
+   % Idem on the right side
+   \draw (s{{ node_name_last }}.north east) -- ++(1cm,0);
+   \draw (s{{ node_name_last }}.south east) -- ++ (1cm,0);
+
+   \node (program_txt) [right= 2cm of s{{ node_name_last }}, minimum width=2cm] {\emph{Program Tape}};
+
+   % Time steps
+   \node (label) [anchor=west, fill=cyan!30, minimum width=2cm] at (current bounding box.north east) {$T = {{ time }}$};
+
+   % Weight tape
+   {% for node in weight_tape %}
+   \node
+        {%- if node['value'] == " " %}[draw=none,fill=none]{% endif -%}
+        (w{{ node['node_name'] }})
+        {%- if node['prev_node_name'] -%}
+        [right=of w{{ node['prev_node_name'] }}]
+        {%- else -%}
+        [below = 1.5cm of {{s_align}}]
+        {%- endif %} { {{ node['value'] }} };
+   {% endfor %}
+
+   \node (weight_txt) [left = 1cm of w0, minimum width=2cm] {\emph{Weights}};
+
+   % Head %
+   \node (weight_head) [above = 1.25cm of {{ node_name_weight_head }},draw=black,thick,anchor=north] {Weight Pointer};
+   \draw[-latex] ++(weight_head) -- ({{node_name_weight_head}});
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,7 @@
+__pycache__/
+.idea/
+output/*
+old/*
+*.c
+*.pyd
+*.pyc
