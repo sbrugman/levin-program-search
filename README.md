@@ -7,7 +7,7 @@ This section is meant to give an overview of design decisions for practical impl
 It is build up in the following way: we start off with a naive implementation and then optimize this in later subsections.
 
 ### Code
-The code accompanying this subsection can be found [here](https://github.com/sbrugman/levin-program-search/tree/master/implementations/).
+The code accompanying this subsection can be found [here](https://github.com/sbrugman/levin-program-search/tree/master/implementation).
 
 Design decisions:
 - Ordering or program enumeration (lexicographic)
